@@ -7,11 +7,11 @@ Supports Blender 4.1+, both Cycles and Eevee engines, and both OSX and Windows. 
 
 Features:
 
-- ---Split Render---: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. You will end up with a new Blender file, with all that splits already merged in a group (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition. There is an option to automatically render that composition into one OpenEXR Multilayer file per View Layer.
+- __Split Render__: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. You will end up with a new Blender file, with all that splits already merged in a group (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition. There is an option to automatically render that composition into one OpenEXR Multilayer file per View Layer.
 
-- Animated Border Render: Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
+- __Animated Border Render__: Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
-- Object Based Render: Render selected object/s region on screen, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
+- __Object Based Render__: Render selected object/s region on screen, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
 SRT brings 2 different functionalities to you: by one hand, you will be able to animate Blender's crop area frame by frame, bringing the ability to render any part in your scene. This way you don't need to render the whole frame, saving you a lot of time. And on the other hand, it claims to be able to render any file size and any project, on any hardware using your GPU (NOTE: 512 and 1GB GPUs will not be able to render large files resolutions yet, like 8K +). It will split the render into small pieces, and merge them later. User interaction is not needed at all to merge split files.
 
