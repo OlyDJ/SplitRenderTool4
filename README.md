@@ -7,7 +7,7 @@ Supports Blender 4.1+, both Cycles and Eevee engines, and both OSX and Windows. 
 
 Features:
 
-- Split Render: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. You will end up with a new Blender file, with all that splits already merged in a group (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition. There is an option to automatically render that composition into one OpenEXR Multilayer file per View Layer.
+- ---Split Render---: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. You will end up with a new Blender file, with all that splits already merged in a group (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition. There is an option to automatically render that composition into one OpenEXR Multilayer file per View Layer.
 
 - Animated Border Render: Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
