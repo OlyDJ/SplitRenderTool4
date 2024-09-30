@@ -8,7 +8,7 @@ SRT4 brings users the ability to get rid of "System is out of GPU memory" and re
 
 SRT goes far away from other similar add-ons, being able to render single frames as well as animations, and render higher resolutions with same hardware.
 
-[Render Test: Blender max resolution: 900 x 500, SRT max resolution: 3840 × 2160](https://github.com/OlyDJ/SplitRenderTool4/wiki#render-resolution-comparison-tests)
+[Render Test: Blender max resolution: 900 x 500, SRT max resolution: 3840 × 2160](https://github.com/OlyDJ/SplitRenderTool4/wiki/Render-resolution-comparison-tests)
 
 ## Functionalities:
 
