@@ -13,13 +13,76 @@ SRT goes far away from other similar add-ons, being able to render single frames
 
 ## Functionalities:
 
-- __Split Render__: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. It creates a new Blender file, with all that splits already merged inside a group node (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition.
+- [__Split Render__](https://github.com/OlyDJ/SplitRenderTool4/wiki#split-render): Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. It creates a new Blender file, with all that splits already merged inside a group node (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition.
 
-- __Animated Border Render__: Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
+- [__Animated Border Render__](https://github.com/OlyDJ/SplitRenderTool4/wiki#animated-border-render): Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
-- __Object Based Render__: Render selected object/s region on screen, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
+- [__Object Based Render__](https://github.com/OlyDJ/SplitRenderTool4/wiki#objbect-based-render): Render selected object/s region on screen, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
 Split Render Tool 4 is the next generation of Split Render Tool add-on. It had been re-coded from scratch taking the initial ideas, but re-thinking its methods to be more efficient in terms of render times and resources consumption. 
+
+
+## Features:
+
+### Split Render
+
+It is well known that split a render into several pieces and merge them later has issues with Denoising internal AI. Blender Denoising works by analising all the image, processing all pixels, and returning the final image. So when we split an image, it just analise those pixels, but AI does not know what is beyond them. The resulting image after merge all pieces will have at the borders some pixels that will not match with the rest of the image. Leaving us with a useless image.
+
+SRT fixes that issue WITHOUT user interaction, using 2 different methods:
+
+- **Denoise Node**: Fix splits by using Denoising passes and Denoise node (Recommended).
+- **Border Render**: Fix splits by rendering extra images (Old method, slow, requires more disk space).
+
+Options:
+
+- **Splits**: Select number of splits (6, 12, 24, 48, 96, 192 or 384).
+- **Copy command line to clipboard**: Just open Terminal or CMD, paste and press enter. This way you can see the progress and all the processes.
+- **Enable Cycles debug**: You will see more information about each render step.
+- **Open Terminal/CMD**: Automatically open Terminal/CMD after copying CLI render command and closes Blender.
+- **Use SRT Composition nodes**: Use SRT nodes directly to start compositing, otherwise render OpenEXR Multilayer images (one for each View Layer).
+- **Mute Denoise nodes**: Only with "Denoise Node" method and "Use SRT Composition nodes". Useful at high resolutions to speed up Blender interface.
+- **Auto disable Use Nodes in Composition Editor**: Only with "Denoise Node" method and "Use SRT Composition nodes". Useful at higher resolutions to speed up Blender interface.
+- **Separate passes**: Only with "Use SRT Composition nodes" disabled. Separate each pass into files, instead of creating one multilayer file. 
+- **Passes to folders**: Only with "Use SRT Composition nodes" disabled and "Separate passes" enabled. This option will create a folder for each View Layer, and inside of them a folder for each pass.
+- **View Layers to folders**: Only with "Use SRT Composition nodes" disabled, "Separate passes" disabled, and at least 2 enabled View Layers. With this option SRT will create a folder for each View Layer.
+- **Don't delete split images**: Only with "Use SRT Composition nodes" disabled. By default, after render final images, SRT deletes all splits and borders automatically. 
+- **Use Blender's output**: By default SRT creates a directory where your .blend file is and with the same name as output for render. Enabled, this option will take Blender's output instead. 
+- **Overwrite existing files**: This applies only to splits and borders, not to final images in any case. When disabled and if render crashes, init again SRT render, it will check and skip from render each existing split.
+
+### Animated Border feature
+
+This feature will save you a lot of render time. After a render, it can happen that some object are wrong, or you forgot to hide something, or just want to change some texture. You can create Border Region keyframes along the timeline (just like any other property). First you need to create keyframes using the in-built Keyframe System, then you must bake the animation (to process the rest of frames).
+
+- Animate border region like any other object.
+- Bake system to animate border. Create, Remove, Jump to First, Jump to previous, Jump to next, Jump to last, Bake animation, Reset bake and Reset keyframes buttons.
+- Preview Render Region while scrolling the timeline, like animating any object property (after bake).
+- **Create final composition**: One group node for each enabled View Layer (with all its passes), ready to add the original image sequence.
+- **Use Blender's output**: By default SRT creates a directory where your .blend file is and with the same name as output for render. Enabled, this option will take Blender's output instead. 
+- **Use ellipse mask**: By default SRT uses square mask.
+- **Fade amount**: Select amount of blur edges size.
+
+### Common features
+
+- Option to use Blender's output file instead of the same folder as Blend file.
+- Information about resolution and border sizes.
+- Information about render times (Splits of a frame and frames).
+- All image file formats.
+
+
+
+"Use Blender's output". By default SRT creates a directory where your .blend file is, and with the same name. Split images have always same name: "srt_0005_0210.exr", where 0005 is the split number and 0210 is the frame number. 
+
+
+
+SRT is compatible with Blender 2.93.3 to 3.6
+
+Because of the way SRT works (at least yet), there is no preview while rendering, and Blender UI gets locked. Unfortunately to cancel the render 
+process you need to kill blender app manually. (Something I'm trying hard to solve)
+
+GPUs with 512, 1GB and 2GB might not be able to render big resolutions (8K +). This limitation will be removed in the future. 
+
+By default the output is set to a new folder in Blender' s file folder, called as the Blend file. And the images names start with "srt_" 
+followed by frame number (ex: srt_0012.xxx)
 
 ##
 
@@ -53,54 +116,6 @@ SRT 192 splits (16 x 12):
 Blender rendered up to 880 × 460 (aprox.), while SRT rendered 3840 × 2160 on same computer, GPU, project and settings. Not tested 384 splits.
 
 Obviously, the more the splits, the more the amount of time. With 6 splits almost finishes 1080 resolution, in 38 minutes (which means that at 12 splits is more than enough to finish it). But if you render with 24 splits the same resolution, it took almost double the time than with 6 splits. So it is important to adjust number of splits for each project, in order to minimize render times. 
-
-## Features:
-
-Split Render feature
-
-It is well known that split a render into several pieces and merge them later has issues with Denoising internal AI. Blender Denoising works by analising all the image, processing all pixels, and returning the final image. So when we split an image, it just analise those pixels, but AI does not know what is beyond them. The resulting image after merge all pieces will have at the borders some pixels that will not match with the rest of the image. Leaving us with a useless image.
-
-SRT fixes that issue WITHOUT user interaction. This is how it handles the render:
-
-After selecting the number of splits, it will render them, and additionally it will render the borders with some margin. Then it compose the split images into one image, and it will add those additional borders on top of it.
-
-- Render single frames or animations.
-- Split final image into small pieces, and merge them automatically. 
-- Fix the split borders issue in final image (only in Combined pass).
-- Option in OpenEXR Multilayer format to separate passes into different files.
-- System failure detector. If anything goes wrong, SRT detects it and offers you the option to fix it with one click. 
-
-Animated Border feature
-
-This feature will save you a lot of render time. After a render, it can happen that some object is wrong, or you forgot to hide something. With this add-on you will be able to animate Blender's Crop Region along the timeline (just like any other property).
-
-First you need to create keyframes using the in-built Keyframe System, then you must bake the animation (to process the rest of frames).
-
-- Animate render border like any other object.
-- Keyframe options to add and remove them.
-- Bake system to animate border.
-- Preview crop region while scrolling the timeline, like animating any object property.
-- Option to create a new Blender file with a composition that blurs the edges of the image.
-- Option to blur edges based on ellipse mask.
-- Option to control the blur size.
-
-Common features
-
-- Option to use Blender's output file instead of the same folder as Blend file.
-- Information about resolution and border sizes.
-- Information about render times (Splits of a frame and frames).
-- All image file formats.
-
-
-SRT is compatible with Blender 2.93.3 to 3.6
-
-Because of the way SRT works (at least yet), there is no preview while rendering, and Blender UI gets locked. Unfortunately to cancel the render 
-process you need to kill blender app manually. (Something I'm trying hard to solve)
-
-GPUs with 512, 1GB and 2GB might not be able to render big resolutions (8K +). This limitation will be removed in the future. 
-
-By default the output is set to a new folder in Blender' s file folder, called as the Blend file. And the images names start with "srt_" 
-followed by frame number (ex: srt_0012.xxx)
 
 
 How to install this addon:
