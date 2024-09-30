@@ -49,7 +49,7 @@ Options:
 - **Use Blender's output**: By default SRT creates a directory where your .blend file is and with the same name as output for render. Enabled, this option will take Blender's output instead. 
 - **Overwrite existing files**: This applies only to splits and borders, not to final images in any case. When disabled and if render crashes, init again SRT render, it will check and skip from render each existing split.
 
-### Animated Border feature
+### Animated Border Render
 
 This feature will save you a lot of render time. After a render, it can happen that some object are wrong, or you forgot to hide something, or just want to change some texture. You can create Border Region keyframes along the timeline (just like any other property). First you need to create keyframes using the in-built Keyframe System, then you must bake the animation (to process the rest of frames).
 
@@ -61,28 +61,16 @@ This feature will save you a lot of render time. After a render, it can happen t
 - **Use ellipse mask**: By default SRT uses square mask.
 - **Fade amount**: Select amount of blur edges size.
 
-### Common features
+### Object Border Render
 
-- Option to use Blender's output file instead of the same folder as Blend file.
-- Information about resolution and border sizes.
-- Information about render times (Splits of a frame and frames).
-- All image file formats.
+This feature is similar to Animated Border. Select one or more objects and bake the animation (to process the rest of frames). 
 
-
-
-"Use Blender's output". By default SRT creates a directory where your .blend file is, and with the same name. Split images have always same name: "srt_0005_0210.exr", where 0005 is the split number and 0210 is the frame number. 
-
-
-
-SRT is compatible with Blender 2.93.3 to 3.6
-
-Because of the way SRT works (at least yet), there is no preview while rendering, and Blender UI gets locked. Unfortunately to cancel the render 
-process you need to kill blender app manually. (Something I'm trying hard to solve)
-
-GPUs with 512, 1GB and 2GB might not be able to render big resolutions (8K +). This limitation will be removed in the future. 
-
-By default the output is set to a new folder in Blender' s file folder, called as the Blend file. And the images names start with "srt_" 
-followed by frame number (ex: srt_0012.xxx)
+- Preview Render Region while scrolling the timeline, like animating any object property (after bake).
+- **Create final composition**: One group node for each enabled View Layer (with all its passes), ready to add the original image sequence.
+- **Use Blender's output**: By default SRT creates a directory where your .blend file is and with the same name as output for render. Enabled, this option will take Blender's output instead. 
+- **Use ellipse mask**: By default SRT uses square mask.
+- **Fade amount**: Select blur edges amount of size.
+- **Margin amount**: Select objects amount of margin.
 
 ##
 
@@ -116,6 +104,24 @@ SRT 192 splits (16 x 12):
 Blender rendered up to 880 × 460 (aprox.), while SRT rendered 3840 × 2160 on same computer, GPU, project and settings. Not tested 384 splits.
 
 Obviously, the more the splits, the more the amount of time. With 6 splits almost finishes 1080 resolution, in 38 minutes (which means that at 12 splits is more than enough to finish it). But if you render with 24 splits the same resolution, it took almost double the time than with 6 splits. So it is important to adjust number of splits for each project, in order to minimize render times. 
+
+
+##
+
+"Use Blender's output". By default SRT creates a directory where your .blend file is, and with the same name. Split images have always same name: "srt_0005_0210.exr", where 0005 is the split number and 0210 is the frame number. 
+
+
+
+SRT is compatible with Blender 2.93.3 to 3.6
+
+Because of the way SRT works (at least yet), there is no preview while rendering, and Blender UI gets locked. Unfortunately to cancel the render 
+process you need to kill blender app manually. (Something I'm trying hard to solve)
+
+GPUs with 512, 1GB and 2GB might not be able to render big resolutions (8K +). This limitation will be removed in the future. 
+
+By default the output is set to a new folder in Blender' s file folder, called as the Blend file. And the images names start with "srt_" 
+followed by frame number (ex: srt_0012.xxx)
+
 
 
 How to install this addon:
