@@ -1,27 +1,60 @@
 # Split Render Tool 4 - Blender Addon
-Animated border region, Object based and Splits based renders
+### Animated border region, Object based and Splits based renders
 
 Are you getting "System is out of GPU memory" error? Do you want/need to render a 32K image? Did you render a sequence in which one object is wrong, but you don't want to render the whole sequence again? Do you have some older graphics cards (2GB, 4GB, etc) that can't process any of your projects? Split Render Tool is the add-on you need.
 
 Supports Blender 4.1+, both Cycles and Eevee engines, and both OSX and Windows. (Blender versions below 4.1 as well as Linux systems had not been tested)
 
-Features:
+SRT4 brings users the ability to get rid of "System is out of GPU memory" and render at 200% of your resolution by rendering split tiles. On the other hand, it allows users to animate Blender's render region area frame by frame along the timeline. It also brings the ability to render based on selected object/s region on screen, by analizing their location and scale on each frame.
 
-- __Split Render__: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. You will end up with a new Blender file, with all that splits already merged in a group (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition. There is an option to automatically render that composition into one OpenEXR Multilayer file per View Layer.
+SRT goes far away from other similar add-ons, being able to render single frames as well as animations, and render higher resolutions with same hardware.
+
+[Render Test: Blender max resolution: 900 x 500, SRT max resolution: 3840 × 2160](https://github.com/OlyDJ/SplitRenderTool4/wiki#example)
+
+## Functionalities:
+
+- __Split Render__: Split render screen into tiles and merge them without any user interaction (single frame or animation) in Compositior Editor. It creates a new Blender file, with all that splits already merged inside a group node (one group for each enabled View Layer), with all its passes (similar to an Image node with a multilayer file), ready to start your own composition.
 
 - __Animated Border Render__: Create Border Region keyframes along the timeline, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
 - __Object Based Render__: Render selected object/s region on screen, and create a new Blender file with one Composition group node for each enabled View Layer (with all its passes), ready to add the original image sequence. 
 
-SRT brings 2 different functionalities to you: by one hand, you will be able to animate Blender's crop area frame by frame, bringing the ability to render any part in your scene. This way you don't need to render the whole frame, saving you a lot of time. And on the other hand, it claims to be able to render any file size and any project, on any hardware using your GPU (NOTE: 512 and 1GB GPUs will not be able to render large files resolutions yet, like 8K +). It will split the render into small pieces, and merge them later. User interaction is not needed at all to merge split files.
-
-SRT goes far away from other similar add-ons, being able to render single frames and animations, render in any file format, being able (in OpenEXR Multilayer format) to separate passes into different files.
-
-
 Split Render Tool 4 is the next generation of Split Render Tool add-on. It had been re-coded from scratch taking the initial ideas, but re-thinking its methods to be more efficient in terms of render times and resources consumption. 
 
+##
 
-Features:
+### Render resolution comparison tests:
+
+Hardware: MacOS Sonoma, Asus ATI RX570 4GB, AMD Ryzen 5 5600x, 48GB RAM
+
+Blender render:
+
+- Above 900 × 500: "Out of GPU memory" after 8min.
+
+SRT 6 splits (3 × 2): 
+
+- At 1280 × 720: render finished after 23min.	
+- At 1920 × 1080: GPU error in last split, after 27min. Rendered again (only last split), and finished after 9min. Total time: 38min.
+
+SRT 24 splits (6 × 4): 
+
+- At 1920 × 1080: render finished after 1h 12min.
+- At 2560 × 1440: GPU error at split 15, after 59min. Rendered again (only last 10 splits), and finished after 42min. Total time: 1h 41min.
+
+SRT 96 splits (12 × 8):
+
+- At 2560 × 1440: render finished after 3h 23min.
+- At 3840 × 2160: GPU error at split 48, after 2h 8min. Rendered again (from split 48), and finished after 2h 13min. Total time: 4h 21min.
+
+SRT 192 splits (16 x 12):
+
+- At 3840 × 2160: render finished after 5h 57min.
+
+Blender rendered up to 880 × 460 (aprox.), while SRT rendered 3840 × 2160 on same computer, GPU, project and settings. Not tested 384 splits.
+
+Obviously, the more the splits, the more the amount of time. With 6 splits almost finishes 1080 resolution, in 38 minutes (which means that at 12 splits is more than enough to finish it). But if you render with 24 splits the same resolution, it took almost double the time than with 6 splits. So it is important to adjust number of splits for each project, in order to minimize render times. 
+
+## Features:
 
 Split Render feature
 
