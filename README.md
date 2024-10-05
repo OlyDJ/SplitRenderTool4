@@ -12,6 +12,8 @@ SRT goes far away from other similar add-ons, being able to render single frames
 
 ![01_buttons](https://github.com/user-attachments/assets/f1101867-60ce-48d7-aa96-cc8f8223ff90)
 
+NOTE: SRT DOES NOT REDUCE VRAM DATA! What you send to VRAM will remain the same. The key is that because it renders tiles, that does reduce drastically the amount of data that VRAM creates during rendering. This means that while you are able to render just a portion of that frame, SRT will allow you to render higher resolutions (result sometimes looks even like a joke).
+
 [Blender vs SRT render tests: Blender max resolution: 850 × 474, SRT resolution: 3840 × 2160](https://github.com/OlyDJ/SplitRenderTool4/wiki/Render-resolution-comparison-tests)
 
 ## Functionalities:
